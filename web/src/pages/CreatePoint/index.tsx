@@ -62,12 +62,11 @@ const CreatePoint = () => {
 	}, [])
 
 	useEffect(() => {
-		axios.get<IBGEUFResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
-			.then(response => {
-				const ufInitials  = response.data.map(uf => uf.sigla)
+		axios.get<IBGEUFResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados').then(response => {
+			const ufInitials  = response.data.map(uf => uf.sigla)
 
-				setUfs(ufInitials)
-			})
+			setUfs(ufInitials)
+		})
 	}, [])
 
 	useEffect(() => {
@@ -75,12 +74,11 @@ const CreatePoint = () => {
 			return
 		}
 
-		axios.get<IBGECityResponse[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios`)
-			.then(response => {
-				const cityName = response.data.map(city => city.nome)
+		axios.get<IBGECityResponse[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios`).then(response => {
+			const cityName = response.data.map(city => city.nome)
 
-				setCitiesName(cityName)
-			})
+			setCitiesName(cityName)
+		})
 	}, [selectedUf])
 
 	function handleSelectUF(event: ChangeEvent<HTMLSelectElement> ) {

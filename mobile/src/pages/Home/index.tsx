@@ -39,6 +39,19 @@ const Home = () => {
 		})
 	}, [])
 
+	useEffect(() => {
+		if(uf === '') {
+			return
+		}
+
+		axios.get<IBGECityResponse[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`)
+			.then(response => {
+				const cityName = response.data.map(city => ({ 'label': city.nome, 'value': city.nome }))
+
+				setCities(cityName)
+			})
+	}, [uf])
+
 	if(!ufs) {
 		return null
 	}
@@ -48,27 +61,6 @@ const Home = () => {
 			uf,
 			city,
 		})
-	}
-
-	function handleSelectUf(uf: string) {
-		setCity('')
-		if(!uf) {
-			setUf('')
-			setCities([])
-			return
-		}
-
-		setUf(uf)
-
-		axios.get<IBGECityResponse[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`).then(response => {
-			const cityName = response.data.map(city => ({ 'label': city.nome, 'value': city.nome }))
-
-			setCities(cityName)
-		})
-	}
-
-	function handleSelectCity(city: string) {
-		setUf(city)
 	}
 
 	// Nota: trocar inputs por react-native-picker-select
@@ -89,7 +81,7 @@ const Home = () => {
 
 				<View style={styles.footer}>
 					<RNPickerSelect
-						onValueChange={(value) => handleSelectUf(value)}
+						onValueChange={(value) => setUf(value)}
 						placeholder={{ label: 'Selecione uma UF', value: null }}
 						items={ufs}
 					/>

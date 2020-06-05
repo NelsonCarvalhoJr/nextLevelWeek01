@@ -26,6 +26,31 @@ Projeto Ecoleta: Projeto de Coleta de Resíduos. Projeto da Next Level Week da R
  * Listar pontos (filtro por estado / cidade / itens)
  * Listar ponto de coleta específico
 
+## Iniciando o projeto
+
+Após clonar o projeto, é necessário atualizar as dependências e efetuar as migrações do banco de dados.
+
+Baixar, migrar banco e executar Server (a partir da raiz; precisa ser executado primeiro)
+
+```bash
+cd web
+npm install
+npm run knex:migrate
+npm run knex:seed
+npm run dev
+```
+
+Baixar e executar Web (a partir da raiz)
+```bash
+cd web
+npm install
+```
+
+Baixar e executar Mobile (a partir da raiz)
+```bash
+cd mobile
+yarn
+
 ## Configurações
 
 Arquivo **./server/src/controllers/ItemController.ts**
@@ -37,6 +62,25 @@ const serializedItems = items.map(item => ({
 	title: item.title,
 	image_url: `http://<server_ip_address>:3333/uploads/${item.image}`,
 }))
+```
+
+Arquivo **./server/src/controllers/PointController.ts**
+
+```javascript
+// Substituir <server_ip_address> pelo endereço IP em que está executando o server (não pode ser localhost para permitir acesso pelo mobile)
+const serializedPoints = points.map(point => {
+	return {
+		...point,
+		image_url: `http://<server_ip_address>:3333/uploads/${point.image}`,
+	}
+})
+
+// ...
+
+const serializedPoints = {
+	...point,
+	image_url: `http://<server_ip_address>:3333/uploads/${point.image}`,
+}
 ```
 
 Arquivo **./mobile/src/services/api.ts**

@@ -34,7 +34,7 @@ class PointController {
 			return response.status(400).json({ message: 'Point not fount.' })
 		}
 
-		const serializedPoints = {
+		const serializedPoint = {
 			...point,
 			image_url: `http://<server_ip_address>:3333/uploads/${point.image}`,
 		}
@@ -44,7 +44,7 @@ class PointController {
 			.where('point_items.point_id', id)
 			.select('items.title')
 
-		return response.json({ serializedPoints, items })
+		return response.json({ point: serializedPoint, items })
 	}
 
 	async create (request: Request, response: Response) {

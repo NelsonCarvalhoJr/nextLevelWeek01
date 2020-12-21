@@ -21,8 +21,8 @@ Projeto Ecoleta: Projeto de Coleta de Resíduos. Projeto da Next Level Week da R
 
 ## Funcionalidades
 
- * Cadastrar ponto de coleta
- * Listar os itens de coleta
+ - [x] Cadastrar ponto de coleta
+ - [ ] Listar os itens de coleta
  * Listar pontos (filtro por estado / cidade / itens)
  * Listar ponto de coleta específico
 
